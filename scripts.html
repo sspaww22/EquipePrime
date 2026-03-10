@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripts PRIME - Central IT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            color: #2c3e50;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-bottom: 4px solid #ffc107;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #1e3c72;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .header-text p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: white;
+            color: #1e3c72;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        .page-title {
+            color: white;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-subtitle {
+            color: #aaa;
+            font-size: 15px;
+            margin-bottom: 40px;
+        }
+
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .script-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            border-top: 5px solid #1e3c72;
+            cursor: pointer;
+        }
+
+        .script-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+            border-top-color: #ffc107;
+        }
+
+        .script-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 18px 20px;
+            border-bottom: 2px solid #e0e6ed;
+        }
+
+        .script-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+
+        .script-category {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .script-content {
+            padding: 20px;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #555;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .script-text {
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-button {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
+
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+        }
+
+        .copy-button.copied {
+            background: #4caf50;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            font-size: 13px;
+            border-top: 4px solid #ffc107;
+        }
+
+        @media (max-width: 768px) {
+            .scripts-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">📝</div>
+                <div class="header-text">
+                    <h1>SCRIPTS PRIME</h1>
+                    <p>Respostas Prontas para Atendimento</p>
+                </div>
+            </div>
+            <a href="index_home.html" class="back-button">← Voltar ao Menu</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">📋 Biblioteca de Scripts</h1>
+        <p class="page-subtitle">Clique em qualquer caixa para copiar o script e usar em seu atendimento</p>
+
+        <div class="scripts-grid">
+            <!-- Script 1: Passagem de atendimento -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Passagem de Atendimento</div>
+                    <div class="script-category">Transferência de Caso</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá, [Nome do Usuário], bom dia/boa tarde.
+Sou o analista [Seu Nome] e darei continuidade ao seu atendimento a partir de agora, em substituição ao colega [Nome do Analista Anterior].
+Já estou com o histórico da sua solicitação em mãos e sigo acompanhando o caso. Assim que houver uma atualização ou caso você tenha novas informações, sigo à sua inteira disposição.</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 2: Solicitação de informações -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Solicitação de Informações</div>
+                    <div class="script-category">Coleta de Dados</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Para que eu possa ajudá-lo melhor, preciso de algumas informações:
+- Número do seu protocolo/chamado
+- Data em que o problema começou
+- Descrição detalhada do ocorrido
+
+Fico no aguardo desses dados para prosseguir com a investigação.</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 3: Confirmação de entendimento -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Confirmação de Entendimento</div>
+                    <div class="script-category">Validação</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Perfeito, [Nome]!
+
+Confirmei o entendimento do seu caso:
+- [Descrição do Problema 1]
+- [Descrição do Problema 2]
+
+Vou realizar os procedimentos necessários e retornarei em breve com uma solução. Obrigado pela paciência!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 4: Atualizacao em processo -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Atualização em Processo</div>
+                    <div class="script-category">Progresso</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Tenho o prazer de informar que estou trabalhando ativamente no seu case. Já implementei as primeiras ações e aguardo retorno de alguns setores para poder avançar com a próxima etapa.
+
+Manterei você informado sobre qualquer desenvolvimento!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 5: Solução Implementada -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Solução Implementada</div>
+                    <div class="script-category">Resolução</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Excelente notícia, [Nome]!
+
+A solução foi implementada com sucesso. O problema relacionado a [Descrever o Problema] foi resolvido.
+
+Você já pode fazer o teste no seu ambiente. Qualquer dúvida ou persistência no problema, é só retornar que resolvemos imediatamente!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 6: Agendamento de Ação -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Agendamento de Ação</div>
+                    <div class="script-category">Agenda</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Para resolver seu case de forma eficiente, preciso agendar uma ação com o setor responsável.
+
+Disponibilidades:
+- [Data e Hora 1]
+- [Data e Hora 2]
+- [Data e Hora 3]
+
+Qual melhor atende você?</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 7: Escalação -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Escalação de Case</div>
+                    <div class="script-category">Priorização</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Entendo a urgência do seu case. Estou escalando este atendimento para nossa equipe especializada de [Departamento] que poderá lhe dar uma resposta mais rápida e eficiente.
+
+Você será contatado em breve!
+
+Obrigado pela compreensão.</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 8: Solicitação de Teste -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Solicitação de Teste</div>
+                    <div class="script-category">Validação</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Realizei a alteração solicitada. Agora preciso que você faça o teste em seu ambiente para validar se está funcionando conforme esperado.
+
+Por favor, execute os seguintes passos:
+1. [Passo 1]
+2. [Passo 2]
+3. [Passo 3]
+
+E retorne com o resultado!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 9: Solução Temporária -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Solução Temporária</div>
+                    <div class="script-category">Contorno</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Enquanto trabalho na solução definitiva, sugiro que utilize este contorno temporário:
+
+[Descrever a Solução Temporária com os Passos]
+
+Isso deve resolver seu problema no curto prazo. Assim que a solução final estiver pronta, aviso você!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 10: Encerramento de Case -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Encerramento de Case</div>
+                    <div class="script-category">Fechamento</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Fico feliz em informar que seu case foi resolvido com êxito!
+
+Resumo das ações realizadas:
+- [Ação 1]
+- [Ação 2]
+- [Ação 3]
+
+O seu chamado será encerrado. Qualquer dúvida futura, estarei à sua disposição!
+
+Obrigado!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 11: Continuidade após Férias -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Retorno de Férias</div>
+                    <div class="script-category">Comunicação</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Retornei de férias e já estou revisando seu case. Vi que deixei alguns pontos em aberto que preciso esclarecer para continuar com a melhor solução.
+
+Você poderia me atualizar sobre:
+- [Ponto 1]
+- [Ponto 2]
+
+Assim sigo com o andamento!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 12: Solicitação de Feedback -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Solicitação de Feedback</div>
+                    <div class="script-category">Avaliação</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Gostaria de saber sua satisfação com o atendimento que prestei no seu case de [Descrever o Problema].
+
+A sua opinião é muito importante para que eu possa melhorar continuamente!
+
+Poderia me dar um retorno, por favor?</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 13: Documentação Necessária -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Documentação Necessária</div>
+                    <div class="script-category">Comprovação</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Para prosseguir com sua solicitação, preciso que você me envie os seguintes documentos:
+
+- [Documento 1]
+- [Documento 2]
+- [Documento 3]
+
+Assim que receber, darei continuidade ao seu case!
+
+Fico no aguardo.</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 14: Sugestão de Melhoria -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Sugestão de Melhoria</div>
+                    <div class="script-category">Recomendação</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Enquanto resolvíamos seu problema, identificamos uma oportunidade de melhoria no seu ambiente.
+
+Recomendo que você implemente:
+[Descrição da Sugestão]
+
+Isso vai evitar problemas similares no futuro.
+
+Gostaria de ajudar a implementar?</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 15: Solução em Análise -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Solução em Análise</div>
+                    <div class="script-category">Diagnóstico</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Estou analisando seu case com mais profundidade para oferecer a melhor solução.
+
+Identifiquei [Número] pontos que precisam de investigação:
+1. [Ponto 1]
+2. [Ponto 2]
+
+Voltarei em breve com um plano de ação completo!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 16: Confirmação de Entrega -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Confirmação de Entrega</div>
+                    <div class="script-category">Validação</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Já realizei a entrega do [Serviço/Produto]. Para confirmar que você recebeu corretamente:
+
+☐ Você conseguiu acessar o [Item]?
+☐ Está funcionando conforme esperado?
+☐ Tem alguma dúvida de operação?
+
+Ficarei aguardando seu retorno!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 17: Impossibilidade Temporária -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Impossibilidade Temporária</div>
+                    <div class="script-category">Bloqueio</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Infelizmente, encontrei um bloqueio técnico que impede a execução de [Descrever o Problema] no momento:
+
+[Explicação técnica]
+
+Porém, já estou coordenando com a equipe especializada para resolver isto. Esperamos ter uma solução até [Data].
+
+Deixo você informado!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 18: Follow-up -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Follow-up</div>
+                    <div class="script-category">Acompanhamento</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Estou retomando nosso case que estava em andamento.
+
+Gostaria de saber se:
+- Você conseguiu implementar a solução que ofereci?
+- Está funcionando corretamente em seu ambiente?
+- Tem novos pontos a serem resolvidos?
+
+Fico no aguardo!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 19: Desculpas pelo Atraso -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Desculpas pelo Atraso</div>
+                    <div class="script-category">Comunicação</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Peço desculpas pelo tempo que levou para responder seu case.
+
+Entendo a sua frustração e quero ser transparente: [Explicar o Motivo do Atraso]
+
+Hoje mesmo vou trabalhar na sua solução. Obrigado pela paciência!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+
+            <!-- Script 20: Agradecimento Final -->
+            <div class="script-card">
+                <div class="script-header">
+                    <div class="script-name">Agradecimento Final</div>
+                    <div class="script-category">Fechamento</div>
+                </div>
+                <div class="script-content">
+                    <div class="script-text">Olá [Nome],
+
+Quero agradecer imensamente pela sua paciência e parceria durante todo esse atendimento.
+
+Seus feedbacks foram valiosos e contribuíram muito para que chegássemos a uma solução de qualidade.
+
+Qualquer necessidade futura, estarei sempre à sua disposição!
+
+Sucesso em seus projetos!</div>
+                    <button class="copy-button" onclick="copiarScript(this)">📋 Copiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Central IT - Equipe PRIME | Biblioteca de Scripts</p>
+        <p style="margin-top: 10px; opacity: 0.8;">Use esses scripts como base e customize conforme necessário</p>
+    </footer>
+
+    <script>
+        function copiarScript(botao) {
+            const card = botao.closest('.script-card');
+            const texto = card.querySelector('.script-text').innerText;
+            
+            navigator.clipboard.writeText(texto).then(() => {
+                const botaoOriginal = botao.textContent;
+                botao.textContent = '✅ Copiado!';
+                botao.classList.add('copied');
+                
+                setTimeout(() => {
+                    botao.textContent = botaoOriginal;
+                    botao.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                alert('Erro ao copiar o script');
+            });
+        }
+    </script>
+</body>
+</html>
